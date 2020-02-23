@@ -5,4 +5,4 @@ VisionCare is a simple menubar app for macOS that remind to take breaks while us
 
 # Installation
 #### Requires macOS 10.15 Catalina
-[Download latest release](https://github.com/mariusk44/VisionCare/releases/download/0.1/VisionCare.zip).
+[Download latest release from Github](https://github.com/josh/Aware/releases/latest).
