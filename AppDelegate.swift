@@ -40,6 +40,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func addNotificationObservers() {
         let notificationCenter = NSWorkspace.shared.notificationCenter
         notificationCenter.addObserver(forName: NSWorkspace.screensDidWakeNotification, object: nil, queue: nil) { [unowned self] _ in self.startTimer() }
+        notificationCenter.addObserver(forName: NSWorkspace.screensDidSleepNotification, object: nil, queue: nil) { [unowned self] _ in self.stopTimer() }
         notificationCenter.addObserver(forName: NSWorkspace.willSleepNotification, object: nil, queue: nil) { [unowned self] _ in self.stopTimer() }
     }
     
@@ -85,7 +86,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.timeLeft = time
             }
         })
-        timer?.tolerance = 0.5
+        timer?.tolerance = 0.1
     }
     
     func stopTimer() {
