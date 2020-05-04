@@ -24,6 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var windows = [NSWindowController()]
     var timer: Timer?
     var isPaused: Bool = false
+    var breaks = BreaksWithoutSkipping()
     
     var timeLeft: Int = time {
         didSet {
@@ -32,6 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        openWindowForEachScreen()
         makeStatusMenu()
         startTimer()
         addNotificationObservers()
@@ -67,6 +69,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     //MARK: Menubar functions
     @objc func openWindowForEachScreen() {
+        breaks.increase()
+        
         _ = NSScreen.screens.map {
             createNewWindowFor(screen: $0.frame)
         }
@@ -115,14 +119,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window!.titleVisibility = .hidden
         window!.level = .mainMenu + 1
         window!.contentView = NSHostingView(rootView: contentView)
-        window!.makeKeyAndOrderFront(nil)
+        window!.makeKeyAndOrderFront(true)
         // Create the window controller and append it array
         let windowController = NSWindowController(window: window)
         windows.append(windowController)
     }
     
     func closeAllWindows() {
-        _ = self.windows.map{ $0.close() }
+        _ = self.windows.map { $0.close() }
         windows.removeAll()
     }
     

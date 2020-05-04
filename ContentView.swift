@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     
+    var breaks = BreaksWithoutSkipping()
     @State var timeRemaining = 20
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @Environment(\.colorScheme) var colorScheme: ColorScheme
@@ -20,11 +21,15 @@ struct ContentView: View {
                 .font(Font.custom("Condiment-Regular", size: 98))
                 .bold()
                 .foregroundColor(colorScheme == .light ? Color(.black): Color(.white))
+            
+            Text("Breaks without skipping \(breaks.count)")
+            
             Button(action: {
                 self.appDelegate.closeAllWindows()
+                self.breaks.reset()
             }) {
                 Text("Skip")
-                }.buttonStyle(BorderlessButtonStyle())
+            }.buttonStyle(BorderlessButtonStyle())
         }
         .onReceive(timer) { _ in
             if self.timeRemaining > 0 {
