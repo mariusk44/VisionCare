@@ -9,26 +9,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     var breaks = BreaksWithoutSkipping()
     @State var timeRemaining = 20
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    
     var body: some View {
         VStack {
             Text("\(timeRemaining)")
                 .font(Font.custom("Condiment-Regular", size: 98))
                 .bold()
                 .foregroundColor(colorScheme == .light ? Color(.black): Color(.white))
-            
             Text("Breaks without skipping \(breaks.count)")
-            
-            Button(action: {
+            Button("Skip") {
                 self.appDelegate.closeAllWindows()
                 self.breaks.reset()
-            }) {
-                Text("Skip")
             }.buttonStyle(BorderlessButtonStyle())
         }
         .onReceive(timer) { _ in
@@ -44,7 +38,6 @@ struct ContentView: View {
     }
 }
 
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
@@ -53,6 +46,6 @@ struct ContentView_Previews: PreviewProvider {
 
 extension View {
     var appDelegate: AppDelegate {
-        return NSApplication.shared.delegate as! AppDelegate
+        return NSApplication.shared.delegate as! AppDelegate // swiftlint:disable:this force_cast
     }
 }

@@ -9,26 +9,19 @@
 import Foundation
 
 class BreaksWithoutSkipping {
-    
     private let defaults: UserDefaults
     private let defaultsKey = "BreaksWithoutSkipping"
-    
     var count: Int {
         return defaults.integer(forKey: defaultsKey) - 1
     }
-    
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
     }
-    
     func reset() {
         defaults.set(0, forKey: defaultsKey)
-        print(count)
     }
-    
     func increase() {
         let value = defaults.integer(forKey: defaultsKey) + 1
         defaults.set(value, forKey: defaultsKey)
-        print(count)
     }
 }
