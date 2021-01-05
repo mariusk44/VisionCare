@@ -13,6 +13,7 @@ struct ContentView: View {
     @State var timeRemaining = 20
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @Environment(\.colorScheme) var colorScheme: ColorScheme
+
     var body: some View {
         VStack {
             Text("\(timeRemaining)")
