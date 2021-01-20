@@ -36,6 +36,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         makeStatusMenu()
         startTimer()
         addNotificationObservers()
+//        openWindowForEachScreen() // Uncomment to test a Contentview
     }
 
     func addNotificationObservers() {

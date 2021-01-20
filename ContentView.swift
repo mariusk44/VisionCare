@@ -15,23 +15,26 @@ struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
 
     var body: some View {
-        VStack {
-            Text("\(timeRemaining)")
-                .font(Font.custom("Condiment-Regular", size: 98))
-                .bold()
-                .foregroundColor(colorScheme == .light ? Color(.black): Color(.white))
-            Text("Breaks without skipping \(breaks.count)")
-            Button("Skip") {
-                self.appDelegate.closeAllWindows()
-                self.breaks.reset()
-            }.buttonStyle(BorderlessButtonStyle())
-        }
-        .onReceive(timer) { _ in
-            if self.timeRemaining > 0 {
-                self.timeRemaining -= 1
-            } else {
-                self.timer.upstream.connect().cancel()
-                self.appDelegate.closeAllWindows()
+        ZStack {
+            LinearGradient(gradient: Gradient(colors: [.blue, .yellow, .red, .black]), startPoint: .bottomTrailing, endPoint: .topLeading)
+            VStack {
+                Text("\(timeRemaining)")
+                    .font(Font.custom("Condiment-Regular", size: 98))
+                    .bold()
+                    .foregroundColor(colorScheme == .light ? Color(.black): Color(.white))
+                Text("Breaks without skipping \(breaks.count)")
+                Button("Skip") {
+                    self.appDelegate.closeAllWindows()
+                    self.breaks.reset()
+                }.buttonStyle(BorderlessButtonStyle())
+            }
+            .onReceive(timer) { _ in
+                if self.timeRemaining > 0 {
+                    self.timeRemaining -= 1
+                } else {
+                    self.timer.upstream.connect().cancel()
+                    self.appDelegate.closeAllWindows()
+                }
             }
         }
         .opacity(0.5)
