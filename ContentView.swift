@@ -16,7 +16,10 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [.blue, .yellow, .red, .black]), startPoint: .bottomTrailing, endPoint: .topLeading)
+            LinearGradient(
+                gradient: Gradient(colors: [.blue, .yellow, .red, .black]),
+                startPoint: .bottomTrailing,
+                endPoint: .topLeading)
             VStack {
                 Text("\(timeRemaining)")
                     .font(Font.custom("Condiment-Regular", size: 98))
